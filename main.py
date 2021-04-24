@@ -22,6 +22,26 @@ class User(db.Model):
     def __repr__(self):
         return "<User '{}'".format(self.username)
 
+
+class Commitment(db.Model):
+    __tablename__='commitments'
+    id = db.Column(db.Integer(), primary_key=True)
+    ctype = db.Column(db.Integer())
+    cdocument_id = db.Column(db.String(4000))
+    cdate = db.Column(db.DateTime())
+    ccomm = db.Column(db.String(255))
+    cstatus = db.Column(db.Integer())
+    csubject = db.Column(db.String(255))
+    
+    def __init__(self,ccom,cdate,cdocument_id):
+        self.ccomm = ccom
+        self.cdate=cdate
+        self.cdocument_id = cdocument_id
+    
+    def __repr__(self):
+        return "<Commitment '{}'".format(self.ccomm)
+
+    
 @app.route('/',methods=['GET','POST'])
 def hello_world():
     template_data = {}
