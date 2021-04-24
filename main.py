@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 import time
 from config import DevConfig
 
 app = Flask(__name__)
 app.config.from_object(DevConfig)
 db = SQLAlchemy(app)
-
+migrate = Migrate(app, db)
 class User(db.Model):
 
     __tablename__ = 'commitment_users'
@@ -32,7 +33,7 @@ class Commitment(db.Model):
     ccomm = db.Column(db.String(255))
     cstatus = db.Column(db.Integer())
     csubject = db.Column(db.String(255))
-    
+
     def __init__(self,ccom,cdate,cdocument_id):
         self.ccomm = ccom
         self.cdate=cdate
