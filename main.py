@@ -52,6 +52,14 @@ def hello_world():
 def add():
     print('add')
     json_data = request.json
+    user = User(username=json_data['key'])
+    try:
+        db.session.add(user)
+        db.session.commit()
+    except Exception as e:
+        print('Error adding user')
+        db.session.rollback()
+
     return json_data
 
 if __name__ == "__main__":
